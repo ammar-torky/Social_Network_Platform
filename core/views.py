@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login_page')
 def profile(request):
     return render(request , 'profile.html')
+
+
+from django.views.generic.edit import CreateView
 from django.views.generic.edit import CreateView
 class signup (CreateView):
     model = User
@@ -17,6 +20,10 @@ class signup (CreateView):
     def form_valid(self, form):
         user = form.save()
         return redirect('profile_page')
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('profile_page')
+        return super(signup, self).get(request, *args, **kwargs)
     
 # we gonna use this function to check if the user & password is correct or no
 from django.contrib.auth import authenticate
