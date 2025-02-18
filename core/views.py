@@ -2,12 +2,11 @@ from django.shortcuts import render , redirect
 from django.http import * 
 from .forms import *
 from django.contrib.auth.models import User
-# Create your views here.
-def index(request):
-    return HttpResponse("All is Done")
 
+# we gonna use a django decorator to show the selecteed page for only logged in users 
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def profile(request):
     return HttpResponse("This is Profile Page")
 
@@ -19,3 +18,23 @@ class signup (CreateView):
     def form_valid(self, form):
         user = form.save()
         return redirect('profile_page')
+    
+# we gonna use this function to check if the user & password is correct or no
+from django.contrib.auth import authenticate
+# we gonna use this function to login the user
+from django.contrib.auth import login
+# we gonna use this function to write a message to user then redierct him to the page he want
+from django.contrib import messages
+def login_page(request):
+    if request.method == "GET":
+        return render (request, 'login.html')
+    elif request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        our_user = authenticate(request,username=username,password=password)
+        if our_user is not None:
+            login(request,our_user)
+            return redirect('profile_page')
+        else:
+            messages.error(request, "Invalid username or password")
+            return redirect('login_page')

@@ -6,6 +6,14 @@
     <title>Login</title>
 </head>
 <body>
-    
+     <!-- here we gonna create login form  -->
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="container">
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <button type="submit" value="login">Login</button>
+        </form>
 </body>
 </html>
