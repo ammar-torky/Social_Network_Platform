@@ -25,18 +25,21 @@ from django.contrib.auth import login
 # we gonna use this function to write a message to user then redierct him to the page he want
 from django.contrib import messages
 def login_page(request):
-    if request.method == "GET":
-        return render (request, 'login.html')
-    elif request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        our_user = authenticate(request,username=username,password=password)
-        if our_user is not None:
-            login(request,our_user)
-            return redirect('profile_page')
-        else:
-            messages.error(request, "Invalid username or password")
-            return redirect('login_page')
+    if request.user.is_authenticated:
+        return redirect('profile_page')
+    else:
+        if request.method == "GET":
+            return render (request, 'login.html')
+        elif request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            our_user = authenticate(request,username=username,password=password)
+            if our_user is not None:
+                login(request,our_user)
+                return redirect('profile_page')
+            else:
+                messages.error(request, "Invalid username or password")
+                return redirect('login_page')
         
 # now we are gonna work on logut page 
 from django.contrib.auth import logout
