@@ -6,10 +6,9 @@ from django.contrib.auth.models import User
 # we gonna use a django decorator to show the selecteed page for only logged in users 
 from django.contrib.auth.decorators import login_required
 
-@login_required
+@login_required(login_url='login_page')
 def profile(request):
-    return HttpResponse("This is Profile Page")
-
+    return render(request , 'profile.html')
 from django.views.generic.edit import CreateView
 class signup (CreateView):
     model = User
@@ -38,3 +37,9 @@ def login_page(request):
         else:
             messages.error(request, "Invalid username or password")
             return redirect('login_page')
+        
+# now we are gonna work on logut page 
+from django.contrib.auth import logout
+def logout_me(request):
+    logout(request)
+    return redirect('login_page')
