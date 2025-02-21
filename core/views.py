@@ -2,18 +2,30 @@ from django.shortcuts import render , redirect
 from django.http import * 
 from .forms import *
 from .models import User
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+
+# we gonna use this function to check if the user & password is correct or no
+from django.contrib.auth import authenticate
+# we gonna use this function to login the user
+from django.contrib.auth import login
+# we gonna use this function to write a message to user then redierct him to the page he want
+from django.contrib import messages
+
+from django.contrib.auth import logout
+
+from django.utils.decorators import method_decorator
+
+
 
 # we gonna use a django decorator to show the selecteed page for only logged in users 
-from django.contrib.auth.decorators import login_required
-
 @login_required(login_url='login_page')
 def profile(request):
 
     return render(request , 'profile.html')
 
 
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import CreateView
 
 class signup (CreateView):
     model = User
@@ -30,12 +42,7 @@ class signup (CreateView):
             return redirect('profile_page')
         return super(signup, self).get(request, *args, **kwargs)
     
-# we gonna use this function to check if the user & password is correct or no
-from django.contrib.auth import authenticate
-# we gonna use this function to login the user
-from django.contrib.auth import login
-# we gonna use this function to write a message to user then redierct him to the page he want
-from django.contrib import messages
+
 def login_page(request):
     if request.user.is_authenticated:
         return redirect('profile_page')
@@ -54,7 +61,15 @@ def login_page(request):
                 return redirect('login_page')
         
 # now we are gonna work on logut page 
-from django.contrib.auth import logout
 def logout_me(request):
     logout(request)
     return redirect('login_page')
+
+# we are gonna work on profile page
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
+class AcoountSettingView(UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'profile_pic','bio' ]
+    template_name = 'AccountSetting.html'
+    def get_object(self, queryset = None):
+        return User.objects.get(id = self.request.user.id)
