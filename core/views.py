@@ -71,5 +71,6 @@ class AcoountSettingView(UpdateView):
     model = User
     fields = ['first_name', 'last_name', 'profile_pic','bio' ]
     template_name = 'AccountSetting.html'
+    success_url = '/profile'
     def get_object(self, queryset = None):
-        return User.objects.get(id = self.request.user.id)
+        return self.request.user
