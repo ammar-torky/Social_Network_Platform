@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.http import * 
 from .forms import *
-from django.contrib.auth.models import User
+from .models import User
 
 # we gonna use a django decorator to show the selecteed page for only logged in users 
 from django.contrib.auth.decorators import login_required
