@@ -1,30 +1,29 @@
 from django.shortcuts import render , redirect
 from django.http import * 
 from .forms import *
-from .models import User
+from .models import *
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView , UpdateView
+from django.views.generic.list import ListView
 
 # we gonna use this function to check if the user & password is correct or no
 from django.contrib.auth import authenticate
 # we gonna use this function to login the user
 from django.contrib.auth import login
-# we gonna use this function to write a message to user then redierct him to the page he want
+# we gonna use this function to write a message to user then redierct him to the page he want if needed 
 from django.contrib import messages
 
 from django.contrib.auth import logout
 
 from django.utils.decorators import method_decorator
 
-
-
-# we gonna use a django decorator to show the selecteed page for only logged in users 
-@login_required(login_url='login_page')
-def profile(request):
-
-    return render(request , 'profile.html')
-
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
+class Profile(ListView):
+    model = Post
+    template_name = 'profile.html'
+    paginate_by = 5
+    def get_queryset(self):
+        return Post.objects.filter(user = self.request.user).order_by('-date')
 
 
 class signup (CreateView):
@@ -74,3 +73,15 @@ class AcoountSettingView(UpdateView):
     success_url = '/profile'
     def get_object(self, queryset = None):
         return self.request.user
+    
+
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
+class CreateNewPost(CreateView):
+    model = Post 
+    template_name = 'new_post.html'
+    fields = ['caption']
+    success_url = '/profile'
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = self.request.user
+        return super().form_valid(form)

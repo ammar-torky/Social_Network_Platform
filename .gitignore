@@ -1,0 +1,43 @@
+### Python ###
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+### Virtual Environment ###
+venv/
+env/
+myenv/
+
+### Django ###
+db.sqlite3
+*.log
+
+### VSCode Settings ###
+.vscode/
+
+### System Files ###
+.DS_Store
+Thumbs.db
+
+### Django Migrations ###
+**/migrations/**
+!**/migrations/__init__.py
+
+### Media Files ###
+media/
+!static/media_profile_pics/
+
+### Pytest ###
+.pytest_cache/
+
+### Temporary Files ###
+*.tmp
+*.bak
+
+### Compiled Files ###
+*.so
+
+### Others ###
+node_modules/
