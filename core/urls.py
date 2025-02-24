@@ -8,5 +8,7 @@ urlpatterns = [
     path('logout/', logout_me, name='logout_page'),
     path('settings/',AcoountSettingView.as_view(), name='accountsettings'),
     path('newpost/',CreateNewPost.as_view(), name='newpost'),
+    path('user/<str:username>/', FriendProfile.as_view(), name='friend_profile_page'),
+
 
 ]

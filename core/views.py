@@ -85,3 +85,35 @@ class CreateNewPost(CreateView):
         user = self.request.user
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
+class FriendProfile(ListView):
+    model = Post
+    template_name = 'friend_profile.html'
+    paginate_by = 5
+    
+    # this method check the logged in user are similar to the user we are trying to access and if it are same redirect it to profile page man 
+    def get(self, *args, **kwargs):
+        friend_username = self.kwargs['username'] # usernmae in url line 
+        logged_in_username = self.request.user.username
+        if friend_username == logged_in_username:
+            return redirect('profile_page')
+        else:
+            return super(FriendProfile, self).get( *args, **kwargs) 
+
+
+    # this method are used to send the data to the template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # change condition to the onwer of the page
+        friend_username = self.kwargs['username'] # usernmae in url line 
+        friend = User.objects.get(username=friend_username) # to get the user from database
+        context['friend'] = friend
+        return context
+        
+
+    def get_queryset(self):
+        # change condition to the onwer of the page
+        friend_username = self.kwargs['username'] # usernmae in url line 
+        friend = User.objects.get(username=friend_username) # to get the user from database
+        return Post.objects.filter(user = friend).order_by('-date')
