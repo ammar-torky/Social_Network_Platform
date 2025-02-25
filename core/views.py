@@ -117,3 +117,14 @@ class FriendProfile(ListView):
         friend_username = self.kwargs['username'] # usernmae in url line 
         friend = User.objects.get(username=friend_username) # to get the user from database
         return Post.objects.filter(user = friend).order_by('-date')
+    
+    # here we gonna create the list view for seaching the user
+class SearchResult(ListView):
+    model = User
+    template_name = 'search_result.html'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        searched_item = self.request.GET.get('search-term')
+        returnd_from_Database = User.objects.filter(username__icontains=searched_item)
+        return returnd_from_Database
