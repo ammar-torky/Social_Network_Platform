@@ -16,3 +16,11 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.caption 
+
+# now we gonna create a model for follow and un follow 
+class Friends(models.Model):
+    user_A = models.ForeignKey(User, on_delete=models.CASCADE , related_name='user_A')
+    user_B = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_B')
+    
+    def __str__(self):
+        return f'{self.user_A.username} follows --> {self.user_B.username}'
