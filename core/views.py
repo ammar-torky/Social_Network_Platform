@@ -128,3 +128,13 @@ class SearchResult(ListView):
         searched_item = self.request.GET.get('search-term')
         returnd_from_Database = User.objects.filter(username__icontains=searched_item)
         return returnd_from_Database
+    
+
+@login_required(login_url='login_page')
+def follow_user(request, id ):
+    user_A = request.user
+    user_B = User.objects.get(id=id) 
+    new_friend = Friends(user_A = user_A , user_B = user_B)
+    new_friend.save() #   كدا تم الحفظ فالداتا بيز 
+
+    return redirect('/user/'+user_B.username)
