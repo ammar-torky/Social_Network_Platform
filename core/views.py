@@ -138,3 +138,11 @@ def follow_user(request, id ):
     new_friend.save() #   كدا تم الحفظ فالداتا بيز 
 
     return redirect('/user/'+user_B.username)
+
+@login_required(login_url='login_page')
+def unfollow_user(request, id ):
+    user_A = request.user
+    user_B = User.objects.get(id=id)
+    Friends.objects.filter(user_A=user_A, user_B=user_B).delete()
+
+    return redirect('/user/'+user_B.username)
