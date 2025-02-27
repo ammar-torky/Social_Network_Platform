@@ -12,6 +12,8 @@ urlpatterns = [
     path('search/', SearchResult.as_view(), name='search_page'),
     path('follow/<int:id>', follow_user, name='follow_user'),
     path('unfollow/<int:id>', unfollow_user, name='unfollow_user'),
+    path('home/', HomePage.as_view(), name='home_page'),
+
 
 
 

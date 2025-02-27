@@ -124,6 +124,7 @@ class FriendProfile(ListView):
         return Post.objects.filter(user = friend).order_by('-date')
     
     # here we gonna create the list view for seaching the user
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
 class SearchResult(ListView):
     model = User
     template_name = 'search_result.html'
@@ -151,3 +152,14 @@ def unfollow_user(request, id ):
     Friends.objects.filter(user_A=user_A, user_B=user_B).delete()
 
     return redirect('/user/'+user_B.username)
+
+
+# working on home page 
+@method_decorator(login_required(login_url='login_page'), name='dispatch')
+class HomePage(ListView):
+    model = Post
+    template_name = 'home.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        pass
