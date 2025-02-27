@@ -109,6 +109,11 @@ class FriendProfile(ListView):
         friend_username = self.kwargs['username'] # usernmae in url line 
         friend = User.objects.get(username=friend_username) # to get the user from database
         context['friend'] = friend
+        
+        #  الجزء دا خاص بحتة اظهار واخفاء زرار المتابعة والغاء المتابعة
+        is_following  = self.request.user.is_following(friend)
+        context['is_following'] = is_following
+        
         return context
         
 
