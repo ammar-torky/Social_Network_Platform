@@ -54,7 +54,7 @@ def login_page(request):
             our_user = authenticate(request,username=username,password=password)
             if our_user is not None:
                 login(request,our_user)
-                return redirect('profile_page')
+                return redirect('home_page')
             else:
                 messages.error(request, "Invalid username or password")
                 return redirect('login_page')
@@ -158,8 +158,9 @@ def unfollow_user(request, id ):
 @method_decorator(login_required(login_url='login_page'), name='dispatch')
 class HomePage(ListView):
     model = Post
-    template_name = 'home.html'
+    template_name = 'home_page.html'
     paginate_by = 10
 
     def get_queryset(self):
-        pass
+        followings = self.request.user.get_followings()
+        return Post.objects.filter(user_id__in = followings ).order_by('-date')
