@@ -4,7 +4,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler" >
-        <h3> <a class="navbar-brand" href="#"> social Network App </a> </h3>
+        <h3> <a class="navbar-brand" href="{% url 'home_page' %}"> Web Scanning </a> </h3>
         <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_page'  %}">  <!--action here is used to forward the input to the page we need of server -->
             <input class="form-control mr-sm-2" type="search" name="search-term" placeholder="Search for Friends" aria-label="Search" name="search-term"> <!--here we just added a name attribute to the input field to make it easy to access it from other place-->
         </form>
