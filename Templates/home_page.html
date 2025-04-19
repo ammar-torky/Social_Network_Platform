@@ -32,7 +32,8 @@ Home
                     <div class="col-md-10">
                         <a href="/user/{{post.user.username}}" class="card-link"><h4>@{{post.user.username}}</h4></a>
                         <p class="card-text">{{post.caption}}</p>
-                        <a href="#" class="card-link">{{post.date_created}}</a>
+                        <a href="#" class="card-link">{{post.date}}</a>
+                        <a href="{% url 'post_brief' post.id %}" class="btn btn-info btn-sm">View Details</a>
                     </div>
                 </div>
             </div>

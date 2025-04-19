@@ -14,6 +14,8 @@ urlpatterns = [
     path('unfollow/<int:id>', unfollow_user, name='unfollow_user'),
     path('home/', HomePage.as_view(), name='home_page'),
     path('post/<int:id>/',post_detail , name='post_detail'),
+    path('post/brief/<int:id>/', post_brief, name='post_brief'),
+
 
 
 

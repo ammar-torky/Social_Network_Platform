@@ -167,8 +167,14 @@ class HomePage(ListView):
         followings = self.request.user.get_followings()
         return Post.objects.filter(user_id__in = followings ).order_by('-date')
 
-# this get post detail 
+# this get post detail for home and friends profile
+@login_required(login_url='login_page')
+def post_brief(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'post_brief.html', {'post': post})
+
+# this get post detail for profile (user's private info )
 @login_required(login_url='login_page')
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
-    return render(request, 'post_detail.html', {'post': post}) 
+    return render(request, 'post_detail.html', {'post': post})
