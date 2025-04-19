@@ -1,0 +1,23 @@
+{%  extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Post Detail
+{% endblock title %}
+
+
+{% block navbar %}
+
+{%  include 'navbar.html' %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+
+<h2>{{ post.user.username }}'s Post</h2>
+<p>{{ post.caption }}</p>
+<p>Posted on: {{ post.date }}</p>
+
+{% endblock content %}
+

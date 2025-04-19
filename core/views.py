@@ -17,6 +17,8 @@ from django.contrib.auth import logout
 
 from django.utils.decorators import method_decorator
 
+from django.shortcuts import render, get_object_or_404
+
 @method_decorator(login_required(login_url='login_page'), name='dispatch')
 class Profile(ListView):
     model = Post
@@ -79,7 +81,7 @@ class AcoountSettingView(UpdateView):
 class CreateNewPost(CreateView):
     model = Post 
     template_name = 'new_post.html'
-    fields = ['caption']
+    fields = ['caption', 'target_url', 'description']
     success_url = '/profile'
     def form_valid(self, form):
         user = self.request.user
@@ -164,3 +166,9 @@ class HomePage(ListView):
     def get_queryset(self):
         followings = self.request.user.get_followings()
         return Post.objects.filter(user_id__in = followings ).order_by('-date')
+
+# this get post detail 
+@login_required(login_url='login_page')
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'post_detail.html', {'post': post}) 

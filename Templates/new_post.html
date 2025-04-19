@@ -1,25 +1,22 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
 New Post
 {% endblock title %}
 
-
 {% block navbar %}
-
-{%  include 'navbar.html' %}
-
+  {% include 'navbar.html' %}
 {% endblock navbar %}
 
 {% block content %}
 <br>
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-
-    <input class="btn btn-primary" type="submit" value="Post">
-</form>
-
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}  <!-- ده هيعرض كل الحقول مرة واحدة -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+</div>
 {% endblock content %}
-

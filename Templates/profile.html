@@ -41,6 +41,7 @@ My Profile
                     <div class="card-body">
                         <p class="card-text">{{post.caption}}</p>
                         <a href="#" class="card-link">{{post.date_created}}</a>
+                        <a href="{% url 'post_detail' post.id %}">see report</a>
                     </div>
                 </div>
                 {% endfor %}
