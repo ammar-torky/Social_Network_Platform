@@ -178,3 +178,13 @@ def post_brief(request, id):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     return render(request, 'post_detail.html', {'post': post})
+
+# this view is user to delete the selected post from profile page 
+@login_required(login_url='login_page')
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if post.user == request.user:  # to make sure the user is the owner of the post
+        post.delete()
+
+    return redirect('profile_page')  

@@ -15,6 +15,7 @@ urlpatterns = [
     path('home/', HomePage.as_view(), name='home_page'),
     path('post/<int:id>/',post_detail , name='post_detail'),
     path('post/brief/<int:id>/', post_brief, name='post_brief'),
+    path('delete-post/<int:post_id>/', delete_post, name='delete_post'),
 
 
 
