@@ -5,6 +5,10 @@
     Signup
     {% endblock title %}
 
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    {% endblock %}
+
     {% block content %}
 
 
@@ -19,15 +23,20 @@
                 <button type="submit" class="btn btn-primary">Sign up</button>
 
             </form>
-            <a href="{% url 'login_page' %}">Already a user ? , Log in</a>
+            <a class="signin-text" href="{% url 'login_page' %}">Already a user? <strong>Log in</strong></a>
+            <br>
         </div>
 
         <div class="col-md-8 col-xs-12">
-            <img class="img-fluid" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" >
-
+            <img class="img-fluid" src="https://images.unsplash.com/photo-1544717305-f9c88f2897bc?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" >
+            
         </div>
     </div>
 </div>
+{% block extra_js %}
+
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}
 
 
     {% endblock content %}
