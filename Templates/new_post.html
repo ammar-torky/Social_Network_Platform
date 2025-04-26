@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
 New Post
@@ -10,13 +11,131 @@ New Post
 {% endblock navbar %}
 
 {% block content %}
-<br>
-<div class="container">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}  <!-- ده هيعرض كل الحقول مرة واحدة -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<div style="max-width: 700px; margin: 40px auto; padding: 30px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+  <!-- Page Title with Icon -->
+  <div style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+    <h2 style="color: #3D365C; font-weight: 600; display: flex; align-items: center;">
+      <i class="fa fa-edit" style="margin-right: 12px; color: #7E57C2;"></i> Create New Post
+    </h2>
+    <p style="color: #666; margin-top: 8px;"> Don't hesitate to share and check your site smoothly😉 </p>
+  </div>
+  
+  <!-- Post Form -->
+  <form method="POST" id="newPostForm">
+    {% csrf_token %}
     
+    <!-- Crispy form fields will be enhanced with our JavaScript -->
+    <div id="formFields">
+      {{ form|crispy }}
+    </div>
+    
+    <!-- Form Actions -->
+    <div style="display: flex; justify-content: flex-end; margin-top: 30px;">
+      <a href="{% url 'profile_page' %}" class="btn" style="background-color: #f0f0f0; color: #555; border: none; padding: 10px 20px; border-radius: 6px; margin-right: 15px; font-weight: 500; text-decoration: none;">
+        Cancel
+      </a>
+      <button type="submit" class="btn" id="submitButton" style="background: linear-gradient(135deg, #7E57C2 0%, #3D365C 100%); color: white; border: none; padding: 10px 25px; border-radius: 6px; font-weight: 500; display: flex; align-items: center; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(126, 87, 194, 0.3);">
+        <i class="fa fa-paper-plane" style="margin-right: 8px;"></i> Publish
+      </button>
+    </div>
+  </form>
 </div>
+
+<style>
+  /* Form element styling */
+  .form-group label {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .form-control {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fafafa;
+  }
+  
+  .form-control:focus {
+    border-color: #7E57C2;
+    box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.15);
+    outline: none;
+    background-color: #fff;
+  }
+  
+  /* Button styling */
+  #submitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(126, 87, 194, 0.4);
+  }
+  
+  /* Helper text styling */
+  .form-text {
+    color: #888;
+    font-size: 0.85rem;
+  }
+  
+  /* Error message styling */
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Enhance form submit action
+    const form = document.getElementById('newPostForm');
+    const submitButton = document.getElementById('submitButton');
+    
+    form.addEventListener('submit', function() {
+      submitButton.innerHTML = '<i class="fa fa-circle-o-notch fa-spin"></i> Publishing...';
+      submitButton.disabled = true;
+    });
+    
+    // Optimize field sizes and add shadow effects
+    const textareas = document.querySelectorAll('textarea.form-control');
+    textareas.forEach(textarea => {
+      // Set reasonable height for textareas
+      textarea.style.height = '120px';
+      textarea.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.05)';
+    });
+    
+    // Optimize input fields
+    const inputs = document.querySelectorAll('input.form-control');
+    inputs.forEach(input => {
+      // Set reasonable width/height for inputs
+      input.style.height = '45px';
+      input.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.05)';
+    });
+    
+    // Enhance form layout and spacing
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach(group => {
+      group.style.marginBottom = '20px';
+      
+      // Make the field labels more prominent
+      const label = group.querySelector('label');
+      if (label) {
+        label.style.fontSize = '0.95rem';
+        label.style.color = '#333';
+      }
+    });
+    
+    // Add smooth transition effects to form fields
+    const formControls = document.querySelectorAll('.form-control');
+    formControls.forEach(element => {
+      element.addEventListener('focus', function() {
+        this.style.transform = 'translateY(-2px)';
+      });
+      
+      element.addEventListener('blur', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+  });
+</script>
 {% endblock content %}

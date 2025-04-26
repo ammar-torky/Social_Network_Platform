@@ -1,0 +1,251 @@
+/* friend_profile.css */
+
+body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Profile card styling */
+.col-md-3 .card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-md-3 .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Profile image */
+.col-md-3 .img-fluid {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 15px;
+    transition: transform 0.3s ease;
+}
+
+.col-md-3 .img-fluid:hover {
+    transform: scale(1.05);
+}
+
+/* User info styling */
+.col-md-3 h3 {
+    color: #343a40;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.col-md-3 h4 {
+    color: #4e73df;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.col-md-3 h4:hover {
+    color: #2e59d9;
+}
+
+.col-md-3 h6 {
+    color: #6c757d;
+    font-weight: 600;
+    background-color: #f8f9fa;
+    padding: 8px 15px;
+    border-radius: 30px;
+    display: inline-block;
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.col-md-3 p {
+    color: #495057;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 0.95rem;
+}
+
+/* Follow/Unfollow buttons */
+.col-md-3 .btn {
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.col-md-3 .btn-success {
+    background-color: #2dce89;
+    border-color: #2dce89;
+}
+
+.col-md-3 .btn-danger {
+    background-color: #f5365c;
+    border-color: #f5365c;
+}
+
+.col-md-3 .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.col-md-3 .btn:active {
+    transform: translateY(1px);
+}
+
+/* Posts section styling */
+.col-md-8 .card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+}
+
+/* Individual post styling */
+.col-md-8 .card .card {
+    margin: 15px 0;
+    border-radius: 12px !important;
+    border-left: 4px solid #4e73df !important;
+    transition: all 0.3s ease;
+}
+
+.col-md-8 .card .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.08);
+}
+
+.col-md-8 .card-body {
+    padding: 1.5rem;
+}
+
+.col-md-8 .card-text {
+    color: #495057;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.col-md-8 .card-link {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.col-md-8 .card-link:hover {
+    color: #4e73df;
+}
+
+/* View more button */
+.col-md-8 .btn-info {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    border-radius: 30px;
+    padding: 7px 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.col-md-8 .btn-info:hover {
+    background-color: #2e59d9;
+    border-color: #2e59d9;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    padding-bottom: 20px;
+}
+
+.pagination li {
+    list-style: none;
+    margin: 0 5px;
+}
+
+.pagination li span {
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.pagination li span a {
+    color: #4e73df;
+    text-decoration: none;
+}
+
+.pagination li span:hover {
+    background-color: #4e73df;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.pagination li span:hover a {
+    color: white;
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.row {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .col-md-3 {
+        margin-left: 0 !important;
+        margin-bottom: 30px;
+    }
+    
+    .row {
+        margin-top: 20px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-3 .img-fluid {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .col-md-3 h3 {
+        font-size: 1.3rem;
+    }
+    
+    .col-md-3 h4 {
+        font-size: 1rem;
+    }
+}
