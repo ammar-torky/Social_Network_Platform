@@ -1,11 +1,15 @@
 {%  extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+
 
 {% block title %}
 Home
 {% endblock title %}
 
-
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 {% block navbar %}
 
 
@@ -48,5 +52,8 @@ Home
 
 
 </div>
+{% block extra_js %}
 
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
 {% endblock content %}
