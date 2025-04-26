@@ -41,30 +41,68 @@ My Profile
     <div class="col-md-8" >
         <div class="card card-body"style="border-radius:25px; min-height:100%;">
             <a href="{% url 'newpost' %}" style="margin-left: 2%;"> <h1> <i class="fa fa-pencil fa-lg"></i> New Post...</h1> </a>
-                {% for post in object_list %}
-                <div class="card" style="margin: 2%;">
-                    <div class="card-body">
-                        <p class="card-text">{{post.caption}}</p>
-                        <a href="#" class="card-link">{{post.date_created}}</a>
-                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">See Report</a>
+            {% for post in object_list %}
+            <div class="card" style="margin: 2%; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div class="card-body">
+            
+                    <!-- الكابشن -->
+                    <h4 class="card-title">{{ post.caption }}</h4>
+            
 
-                         <!-- this is a button user to delete the post from data based written in django form to protect the code from csrf attact ok ? 👇-->
+                    <!-- الوصف مع Read More -->
+                    {% if post.description %}
+                        <p id="desc-{{ post.id }}" class="card-text" style="margin-top:10px;">
+                            {% if post.description|length > 200 %}
+                                {{ post.description|slice:":200" }}...
+                                <span id="more-{{ post.id }}" style="display: none;">{{ post.description|slice:"200:" }}</span>
+                                <a href="javascript:void(0);" onclick="toggleReadMore('{{ post.id }}')" id="btn-{{ post.id }}" style="color: #6a5acd; text-decoration: underline;">Read More</a>
+                            {% else %}
+                                {{ post.description }}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    
+                    <!-- التاريخ -->
+                    <p class="text-muted">{{ post.date}}</p>
+
+                    <!-- الأزرار -->
+                    <div style="margin-top:15px;">
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary" style="margin-right: 10px;">👁️ See Report</a>
+            
                         <form method="POST" action="{% url 'delete_post' post.id %}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">
-                              Delete Post
+                                🗑️ Delete Post
                             </button>
-                          </form>
-                          
+                        </form>
                     </div>
+            
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
+            
             {% include 'pagination.html' %}
         </div>
         <br>
     </div>
 
 </div>
+
+<script>
+    function toggleReadMore(postId) {
+        var moreText = document.getElementById("more-" + postId);
+        var btnText = document.getElementById("btn-" + postId);
+    
+        if (moreText.style.display === "none") {
+            moreText.style.display = "inline";
+            btnText.innerHTML = "Read Less";
+        } else {
+            moreText.style.display = "none";
+            btnText.innerHTML = "Read More";
+        }
+    }
+    </script>
+    
 {% block extra_js %}
 
 <script src="{% static 'js/profile.js' %}"></script>
