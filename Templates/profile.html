@@ -1,13 +1,19 @@
 {%  extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+
 
 {% block title %}
 My Profile
 {% endblock title %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock %}
+
 
 {% block navbar %}
-
 
 {%  include 'navbar.html' %}
 
@@ -60,5 +66,11 @@ My Profile
     </div>
 
 </div>
+{% block extra_js %}
 
+<script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/navbar.js' %}"></script>
+
+
+{% endblock %}
 {% endblock content %}
