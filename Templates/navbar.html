@@ -1,3 +1,9 @@
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+{% endblock %}
+
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #3D365C 0%, #102E50 100%); box-shadow: 0 4px 15px rgba(16, 46, 80, 0.4); padding: 8px 20px; border-bottom: 2px solid rgba(255, 255, 255, 0.1);">
     <button class="navbar-toggler" type="button" style="color:white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 0.3rem 0.6rem; border-radius: 4px; outline: none;" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,3 +53,8 @@
         </ul>
     </div>
 </nav>
+<!-- adding styles -->
+{% block extra_js %}
+<link rel="stylesheet" href="{% static 'css/navbar.js' %}">
+
+{% endblock %}
