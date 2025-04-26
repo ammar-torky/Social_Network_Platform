@@ -4,38 +4,46 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler">
-        <h3 style="margin-bottom: 0;"> 
-            <a class="navbar-brand" href="{% url 'home_page' %}" style="font-weight: 700; letter-spacing: 1px; color: #ffffff !important; text-shadow: 0 2px 4px rgba(0,0,0,0.2); position: relative; padding: 5px 8px; background: rgba(255, 255, 255, 0.1); border-radius: 6px;">
-                <span style="background: #213448; padding: 1px 6px; border-radius: 4px; margin-right: 3px;">Web</span> Scanning
-            </a>
-        </h3>
+        <!-- Navbar Brand -->
+        <a class="navbar-brand" href="{% url 'home_page' %}" style="font-weight: 700; letter-spacing: 1px; color: #ffffff !important; text-shadow: 0 2px 4px rgba(0,0,0,0.2); padding: 5px 8px; background: rgba(255, 255, 255, 0.1); border-radius: 6px; display: flex; align-items: center;">
+            <span style="background: #213448; padding: 1px 6px; border-radius: 4px; margin-right: 3px;">Web</span> Scanning
+        </a>
 
-        <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_page' %}" style="margin-left: 15px;">
-            <div style="position: relative; display: flex; align-items: center;">
-                <input class="form-control mr-sm-2" type="search" name="search-term" placeholder="Search for Friends" aria-label="Search" style="background-color: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 50px; color: white; padding: 8px 20px; width: 240px; transition: all 0.3s ease; font-size: 0.9rem;">
-                <i class="fa fa-search" style="position: absolute; right: 25px; color: rgba(255, 255, 255, 0.7); pointer-events: none;"></i>
+        <!-- Search Form -->
+        <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_page' %}" style="display: flex; align-items: center; justify-content: center; width: 100%; transform: translateX(0); transition: transform 0.3s ease;">
+            <div style="position: relative; width: 400px;">
+                <input class="form-control mr-sm-2" type="search" name="search-term" placeholder="Search for Friends" aria-label="Search" style="background-color: rgba(255, 255, 255, 0.08); border: 2px solid rgba(255, 255, 255, 0.15); border-radius: 50px; color: white; padding: 12px 30px; width: 100%; transition: all 0.3s ease; font-size: 1.2rem; font-family: 'Poppins', sans-serif; outline: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+
+                <!-- Remove the effect of focus on size -->
+                <style>
+                    .form-control:focus {
+                        outline: none;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+                        border-color: rgba(255, 255, 255, 0.25); /* Lighter border on focus */
+                    }
+                </style>
             </div>
         </form>
 
-        <ul class="navbar-nav ml-auto" style="margin-left: auto;">
-            <li class="nav-item" style="margin: 0 5px; position: relative;">
-                <a class="nav-link" href="{% url 'home_page' %}">
-                    <i class="fa fa-home fa-lg" style="margin-right: 8px; vertical-align: middle;"></i> Home
+        <!-- Navbar Items -->
+        <ul class="navbar-nav ml-auto" style="display: flex; margin-left: auto;">
+            <li class="nav-item" style="margin: 0 10px;">
+                <a class="nav-link" href="{% url 'home_page' %}" style="font-size: 1rem; display: flex; align-items: center;">
+                    <i class="fa fa-home fa-lg" style="margin-right: 8px;"></i> Home
                 </a>
             </li>
 
-            <li class="nav-item" style="margin: 0 5px; position: relative;">
-                <a class="nav-link" href="{% url 'profile_page' %}">
-                    <i class="fa fa-user fa-lg" style="margin-right: 8px; vertical-align: middle;"></i> Profile
+            <li class="nav-item" style="margin: 0 10px;">
+                <a class="nav-link" href="{% url 'profile_page' %}" style="font-size: 1rem; display: flex; align-items: center;">
+                    <i class="fa fa-user fa-lg" style="margin-right: 8px;"></i> Profile
                 </a>
             </li>
 
-            <li class="nav-item" style="margin: 0 5px; position: relative;">
-                <a class="nav-link" href="{% url 'logout_page' %}">
-                    <i class="fa fa-sign-out fa-lg" style="margin-right: 8px; vertical-align: middle;"></i> Logout
+            <li class="nav-item" style="margin: 0 10px;">
+                <a class="nav-link" href="{% url 'logout_page' %}" style="font-size: 1rem; display: flex; align-items: center;">
+                    <i class="fa fa-sign-out fa-lg" style="margin-right: 8px;"></i> Logout
                 </a>
             </li>
         </ul>
     </div>
 </nav>
-
