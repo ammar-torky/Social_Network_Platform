@@ -71,7 +71,7 @@ My Profile
             
                         <form method="POST" action="{% url 'delete_post' post.id %}" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?');">
+                            <button type="submit" class="btn btn-danger" ">
                                 🗑️ Delete Post
                             </button>
                         </form>
