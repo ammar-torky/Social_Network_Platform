@@ -27,7 +27,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    caption = models.TextField(max_length=600 , null=False)
+    caption = models.TextField(max_length=800 , null=False)
     date = models.DateTimeField(auto_now_add=True)
     target_url = models.URLField(default="https://example.com")
     description = models.TextField(blank=True, null=True)
