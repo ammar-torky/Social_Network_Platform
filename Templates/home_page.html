@@ -25,24 +25,44 @@ Home
 
         <div class="card card-body"style="border-radius:25px;">
             
-            {% for post in object_list %}
-
-            <div class="card" style="margin: 2%;">
-
-                <div class="card-body row">
-                    <div class="col-md-2">
-                        <img src="{{post.user.profile_pic.url}}" style="max-width:100px; max-height:100px;">
-                    </div>
-                    <div class="col-md-10">
-                        <a href="/user/{{post.user.username}}" class="card-link"><h4>@{{post.user.username}}</h4></a>
-                        <p class="card-text">{{post.caption}}</p>
-                        <a href="#" class="card-link">{{post.date}}</a>
-                        <a href="{% url 'post_brief' post.id %}" class="btn btn-info btn-sm">View Details</a>
-                    </div>
-                </div>
+<!-- HTML structure for post layout -->
+{% for post in object_list %}
+<div class="card" style="margin: 2%;">
+    <div class="card-body row">
+        <div class="col-md-2">
+            <img src="{{ post.user.profile_pic.url }}" alt="Profile Picture">
+        </div>
+        <div class="col-md-10">
+            <div class="user-info-header">
+                <a href="/user/{{ post.user.username }}" class="card-link"><h4>@{{ post.user.username }}</h4></a>
+                <p class="card-link date-link">{{ post.date }}</p>
             </div>
-
-            {% endfor %}
+            
+            <p class="card-text post-caption">
+                <span style="color: #FF6347;">"</span>{{ post.caption }}<span style="color: #FF6347;">"</span>
+            </p>
+                        
+            {% if post.description %}
+                <span class="content-divider"></span>
+                <div class="description-container">
+                    {% if post.description|length > 200 %}
+                        <span id="short-{{ post.id }}">{{ post.description|slice:":200" }}...</span>
+                        <span id="full-{{ post.id }}" style="display:none;">{{ post.description }}</span>
+                        <a href="javascript:void(0);" onclick="toggleReadMore('{{ post.id }}')" id="btn-{{ post.id }}" class="read-more-btn">Read more</a>
+                    {% else %}
+                        {{ post.description }}
+                    {% endif %}
+                </div>
+            {% endif %}
+            
+            <div class="post-actions">
+                <a href="{% url 'post_brief' post.id %}" class="btn btn-info btn-sm">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+            
             {%  include 'pagination.html' %}
         </div>
 
@@ -52,6 +72,27 @@ Home
 
 
 </div>
+
+<script>
+    function toggleReadMore(postId) {
+        var shortText = document.getElementById('short-' + postId);
+        var fullText = document.getElementById('full-' + postId);
+        var btn = document.getElementById('btn-' + postId);
+    
+        if (shortText.style.display !== 'none') {
+            shortText.style.display = 'none';
+            fullText.style.display = 'inline';
+            btn.innerHTML = 'Read less';
+        } else {
+            shortText.style.display = 'inline';
+            fullText.style.display = 'none';
+            btn.innerHTML = 'Read more';
+        }
+    }
+    </script>
+    
+    
+    
 {% block extra_js %}
 
 <script src="{% static 'js/home.js' %}"></script>

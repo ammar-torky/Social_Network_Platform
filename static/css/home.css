@@ -1,8 +1,8 @@
 /* Modern Styles for home_page.html */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f8fafd;
-  color: #2d3748;
+  background-colo#fffef8;
+  color: #3E3F5B;
 }
 
 .row {
@@ -33,7 +33,7 @@ body {
   margin-top: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  align-items: center;
+  align-items: flex-start; /* Changed to align-items: flex-start for better layout */
 }
 
 /* Main container styling */
@@ -52,6 +52,7 @@ body {
   border: 3px solid #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  margin-top: 8px; /* Added margin to align with the username */
 }
 
 .col-md-2 img:hover {
@@ -61,15 +62,16 @@ body {
 
 /* Username styling - modern typography */
 .card-link h4 {
-  color: #3D365C;
+  color: #4a1e9e; /* لون جديد مختلف للمستخدم */
   font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
+  font-size: 1rem; /* تم تقليل الحجم من 1.2rem */
+  margin-bottom: 10px;
   transition: color 0.2s ease;
+  letter-spacing: 0.2px;
 }
 
 .card-link:hover h4 {
-  color: #102E50;
+  color: #2c1178; /* لون عند مرور المؤشر */
   text-decoration: none;
 }
 
@@ -77,20 +79,72 @@ body {
   text-decoration: none !important;
 }
 
+/* Make caption more prominent */
+.card-text.post-caption {
+  font-size: 1.5rem; /* تم زيادة الحجم كما طلبت */
+  line-height: 1.4;
+  color: #3D365C;
+  font-weight: 600;
+  margin-bottom: 10px; /* مسافة أقل بعد العنوان */
+  word-break: break-word;
+  letter-spacing: 0.2px;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+/* خط فاصل بعد الكابشن */
+.content-divider {
+  height: 2px; /* خط أكثر وضوحًا */
+  background: linear-gradient(to right, rgba(61, 54, 92, 0.1) 0%, rgba(61, 54, 92, 0.6) 50%, rgba(61, 54, 92, 0.1) 100%);
+  margin: 8px 0; /* مسافات أقل */
+  width: 100%;
+  display: block;
+}
+
+/* حاوية الوصف - مسافة أقل من الأعلى */
+.description-container {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  padding-left: 12px;
+  border-left: 3px solid rgba(61, 54, 92, 0.2);
+}
+
+
 /* Post text styling - improved readability */
 .card-text {
   font-size: 0.95rem;
   line-height: 1.5;
-  color: #4a5568;
+  color: #52627f;
   margin-bottom: 12px;
   word-break: break-word;
 }
 
+/* Description text styling - for the read more functionality */
+#short-[id], #full-[id] {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #0b4ab6;
+  transition: all 0.3s ease;
+}
+
+/* Animation for showing full text */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
 /* Post date styling */
-.card-link {
+.card-link.date-link {
   color: #a0aec0;
   font-size: 0.75rem;
   margin-right: 12px;
+  margin-top: 4px;
+  display: inline-block;
 }
 
 /* Button styling - more compact and modern */
@@ -183,19 +237,24 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
-/* Read more button */
+/* Read more button - improved styling to match your changes */
 .read-more-btn {
-  color: #4299e1 !important;
-  font-size: 0.75rem;
+  color: #2563eb !important;
+  font-size: 0.8rem;
   font-weight: 500;
   text-decoration: none !important;
   margin-left: 5px;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(37, 99, 235, 0.1); /* خلفية زرقاء شفافة */
+
 }
 
 .read-more-btn:hover {
-  color: #3182ce !important;
-  text-decoration: underline !important;
+  color: #1e40af !important; /* لون أزرق أغمق عند مرور المؤشر */
+  background-color: rgba(37, 99, 235, 0.2); /* خلفية أغمق عند مرور المؤشر */
 }
 
 /* Post card - improved layout */
@@ -231,9 +290,29 @@ body {
   flex-direction: column;
 }
 
+/* User info header - aligns username and date */
+.user-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
 /* Actions row - better alignment */
 .post-actions {
   display: flex;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 12px;
+}
+
+/* Description container styles */
+.card-text[id^="short-"], 
+.card-text[id^="full-"] {
+  margin-bottom: 0;
+}
+
+/* Container for description and read more button */
+div.card-text {
+  margin-bottom: 12px;
+  position: relative;
 }

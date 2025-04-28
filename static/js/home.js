@@ -38,28 +38,34 @@ document.addEventListener('DOMContentLoaded', function() {
         
         postCards.forEach(card => {
             const cardBody = card.querySelector('.card-body');
-            let actionArea = cardBody.querySelector('.btn-info').parentNode;
+            let actionArea = cardBody.querySelector('.post-actions');
             
             // Create a dedicated action area div if it doesn't exist
-            if (!cardBody.querySelector('.post-actions')) {
+            if (!actionArea) {
                 const actionsDiv = document.createElement('div');
                 actionsDiv.classList.add('post-actions');
                 
                 // Move the existing button to this div
                 const viewBtn = cardBody.querySelector('.btn-info');
-                const parent = viewBtn.parentNode;
-                
-                // Clone existing button first
-                const clonedBtn = viewBtn.cloneNode(true);
-                
-                // Create the actions div and append the cloned button
-                actionsDiv.appendChild(clonedBtn);
-                
-                // Add the actions div after the original button
-                viewBtn.insertAdjacentElement('afterend', actionsDiv);
-                
-                // Remove the original button
-                viewBtn.remove();
+                if (viewBtn) {
+                    const parent = viewBtn.parentNode;
+                    
+                    // Clone existing button first
+                    const clonedBtn = viewBtn.cloneNode(true);
+                    
+                    // Create the actions div and append the cloned button
+                    actionsDiv.appendChild(clonedBtn);
+                    
+                    // Add the actions div after the original button
+                    viewBtn.insertAdjacentElement('afterend', actionsDiv);
+                    
+                    // Remove the original button
+                    viewBtn.remove();
+                } else {
+                    // If no button exists, just append the actions div
+                    const container = cardBody.querySelector('.col-md-10');
+                    container.appendChild(actionsDiv);
+                }
                 
                 // Update actionArea to the new div
                 actionArea = actionsDiv;
@@ -100,76 +106,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Execute the function after a small delay to ensure DOM is ready
     setTimeout(addLikeButtons, 300);
 
-    // Add read more/less functionality to long posts - improved
-    const addReadMoreToLongTexts = () => {
-        const postTexts = document.querySelectorAll('.card-text');
+// Fix the loading animation when clicking on "View Details"
+const detailButtons = document.querySelectorAll('.btn-info');
+detailButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        // Save original text
+        const originalText = this.innerHTML;
         
-        postTexts.forEach(text => {
-            const content = text.textContent;
-            
-            if (content.length > 120) { // Shorter threshold for mobile-friendly design
-                const shortText = content.substring(0, 120) + '...';
-                const fullText = content;
-                
-                text.textContent = shortText;
-                text.dataset.fullText = fullText;
-                text.dataset.shortText = shortText;
-                
-                const readMoreBtn = document.createElement('a');
-                readMoreBtn.href = '#';
-                readMoreBtn.classList.add('read-more-btn');
-                readMoreBtn.textContent = 'Read more';
-                
-                let expanded = false;
-                
-                readMoreBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (expanded) {
-                        text.textContent = text.dataset.shortText;
-                        this.textContent = 'Read more';
-                    } else {
-                        text.textContent = text.dataset.fullText;
-                        this.textContent = 'Read less';
-                    }
-                    
-                    expanded = !expanded;
-                    
-                    // Re-append the button after changing text
-                    text.appendChild(document.createTextNode(' '));
-                    text.appendChild(this);
-                });
-                
-                text.appendChild(document.createTextNode(' '));
-                text.appendChild(readMoreBtn);
+        // Show loading spinner
+        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+        
+        // Store original button text in a data attribute
+        this.setAttribute('data-original-text', originalText);
+        
+        // Set a much shorter timeout - just as a fallback
+        setTimeout(() => {
+            // Reset button if we're still on the same page
+            if (document.contains(this)) {
+                this.innerHTML = this.getAttribute('data-original-text');
             }
-        });
-    };
-    
-    // Execute the function after a small delay
-    setTimeout(addReadMoreToLongTexts, 300);
-
-    // Add loading animation when clicking on "View Details" - improved
-    const detailButtons = document.querySelectorAll('.btn-info');
-    detailButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Save original text
-            const originalText = this.innerHTML;
-            
-            // Show loading spinner
-            this.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
-            this.disabled = true;
-            
-            // Simulate loading delay (in a real app, this would be removed)
-            setTimeout(() => {
-                // In a real app, this timeout would be removed as the page navigation
-                // would naturally occur without need to restore the button
-                this.innerHTML = originalText;
-                this.disabled = false;
-            }, 5000); // Long timeout to ensure it shows during page transition
-        });
+        }, 1000); // Reduced from 5000ms to 1000ms
+        
+        // Don't disable the button to allow navigation
+        // this.disabled = true; - Remove this line
     });
+});
 
     // Add modern animations and effects
     const style = document.createElement('style');
@@ -228,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add timestamp formatting
     const formatTimeAgo = () => {
-        const timeLinks = document.querySelectorAll('.card-link:not([href^="/user/"]):not(.read-more-btn)');
+        const timeLinks = document.querySelectorAll('.card-link.date-link');
         
         timeLinks.forEach(link => {
             // Add time indicator class for styling
@@ -244,20 +205,41 @@ document.addEventListener('DOMContentLoaded', function() {
         
         postCards.forEach(card => {
             card.addEventListener('click', function(e) {
-                // Don't trigger if clicking on a button or link
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || 
-                    e.target.parentElement.tagName === 'BUTTON' || e.target.parentElement.tagName === 'A') {
-                    return;
+                // Check if the click was on a button
+                if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+                    // Redirect to the post detail page
+                    const postLink = card.querySelector('.card-link');
+                    if (postLink) {
+                        window.location.href = postLink.href;
+                    }
                 }
-                
-                // Add subtle highlight effect
-                this.style.backgroundColor = '#f7fafc';
-                setTimeout(() => {
-                    this.style.backgroundColor = '#fff';
-                }, 200);
             });
         });
     };
     
-    setTimeout(addPostInteraction, 300);
+    setTimeout(addPostInteraction, 10);
 });
+
+// Ensure the toggleReadMore function is available in global scope
+// This function is called from the HTML for the read more/less buttons
+function toggleReadMore(postId) {
+    var shortText = document.getElementById('short-' + postId);
+    var fullText = document.getElementById('full-' + postId);
+    var btn = document.getElementById('btn-' + postId);
+
+    if (shortText.style.display !== 'none') {
+        shortText.style.display = 'none';
+        fullText.style.display = 'inline';
+        btn.innerHTML = 'Read less';
+    } else {
+        shortText.style.display = 'inline';
+        fullText.style.display = 'none';
+        btn.innerHTML = 'Read more';
+    }
+    
+    // Add animation effect when toggling
+    fullText.classList.add('fade-in');
+    setTimeout(() => {
+        fullText.classList.remove('fade-in');
+    }, 500);
+}
