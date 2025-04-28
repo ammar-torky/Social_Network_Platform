@@ -1,4 +1,3 @@
-// Modern interactive elements for home page
 document.addEventListener('DOMContentLoaded', function() {
     // Stagger animation for post cards
     const cards = document.querySelectorAll('.card');
@@ -106,32 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Execute the function after a small delay to ensure DOM is ready
     setTimeout(addLikeButtons, 300);
 
-// Fix the loading animation when clicking on "View Details"
-const detailButtons = document.querySelectorAll('.btn-info');
-detailButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-        // Save original text
-        const originalText = this.innerHTML;
-        
-        // Show loading spinner
-        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
-        
-        // Store original button text in a data attribute
-        this.setAttribute('data-original-text', originalText);
-        
-        // Set a much shorter timeout - just as a fallback
-        setTimeout(() => {
-            // Reset button if we're still on the same page
-            if (document.contains(this)) {
-                this.innerHTML = this.getAttribute('data-original-text');
-            }
-        }, 1000); // Reduced from 5000ms to 1000ms
-        
-        // Don't disable the button to allow navigation
-        // this.disabled = true; - Remove this line
-    });
-});
-
     // Add modern animations and effects
     const style = document.createElement('style');
     style.textContent = `
@@ -198,26 +171,6 @@ detailButtons.forEach(button => {
     };
     
     setTimeout(formatTimeAgo, 300);
-    
-    // Add post interaction effects
-    const addPostInteraction = () => {
-        const postCards = document.querySelectorAll('.card:not(.card-body)');
-        
-        postCards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                // Check if the click was on a button
-                if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
-                    // Redirect to the post detail page
-                    const postLink = card.querySelector('.card-link');
-                    if (postLink) {
-                        window.location.href = postLink.href;
-                    }
-                }
-            });
-        });
-    };
-    
-    setTimeout(addPostInteraction, 10);
 });
 
 // Ensure the toggleReadMore function is available in global scope

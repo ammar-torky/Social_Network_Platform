@@ -39,9 +39,11 @@ Home
             </div>
             
             <p class="card-text post-caption">
-                <span style="color: #FF6347;">"</span>{{ post.caption }}<span style="color: #FF6347;">"</span>
+                <a href="{% url 'post_brief' post.id %}" style="text-decoration: none; color: inherit;">
+                    <span style="color: #FF6347;">"</span>{{ post.caption }}<span style="color: #FF6347;">"</span>
+                </a>
             </p>
-                        
+               
             {% if post.description %}
                 <span class="content-divider"></span>
                 <div class="description-container">

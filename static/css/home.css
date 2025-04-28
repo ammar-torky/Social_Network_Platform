@@ -316,3 +316,7 @@ div.card-text {
   margin-bottom: 12px;
   position: relative;
 }
+.card-text.post-caption a {
+  border-bottom: 1px solid #2a2929; /* يمكن تغيير اللون حسب الرغبة */
+  padding-bottom: 2px;
+}
