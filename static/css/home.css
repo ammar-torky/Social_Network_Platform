@@ -79,17 +79,31 @@ body {
   text-decoration: none !important;
 }
 
-/* Make caption more prominent */
+/* Updated Post Caption Styling */
 .card-text.post-caption {
-  font-size: 1.5rem; /* تم زيادة الحجم كما طلبت */
+  font-size: 1.2rem;
   line-height: 1.4;
   color: #3D365C;
-  font-weight: 600;
-  margin-bottom: 10px; /* مسافة أقل بعد العنوان */
+  font-weight: 700; /* Changed to bold */
+  margin-bottom: 15px;
   word-break: break-word;
   letter-spacing: 0.2px;
+  display: inline-block; /* Makes container fit content width */
+  padding: 8px 15px;
+  background-color: rgba(248, 249, 250, 0.5); /* More transparent background */
+  border-radius: 8px;
   position: relative;
-  padding-bottom: 8px;
+}
+/* Vertical accent line on the left side */
+.card-text.post-caption::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #FF6347, #FF8C69);
+  border-radius: 4px 0 0 4px;
 }
 
 /* خط فاصل بعد الكابشن */
@@ -298,25 +312,55 @@ body {
   margin-bottom: 8px;
 }
 
-/* Actions row - better alignment */
-.post-actions {
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
+/* Completely redesigned button */
+.post-actions .btn-info {
+  background-color: #4a1e9e; /* Changed to match username color */
+  border: none;
+  border-radius: 8px; /* Less rounded corners */
+  padding: 6px 14px; /* Reduced padding */
+  font-size: 0.8rem; /* Smaller font size */
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(74, 30, 158, 0.2);
+  margin-left: 0;
+  display: inline-block;
+  margin-top: 5px;
+  position: relative;
+  transition: all 0.3s ease;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Description container styles */
+/* Improved hover effect */
+.post-actions .btn-info:hover {
+  background-color: #3D365C;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(61, 54, 92, 0.3);
+}
+
+/* Add a subtle effect when button is clicked */
+.post-actions .btn-info:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(61, 54, 92, 0.2);
+}
+
+/* Optional: add an icon to the button */
+.post-actions .btn-info::after {
+  content: " →"; /* Add an arrow */
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.post-actions .btn-info:hover::after {
+  transform: translateX(4px);
+}
+
+/* Improved description text styling */
 .card-text[id^="short-"], 
 .card-text[id^="full-"] {
-  margin-bottom: 0;
-}
-
-/* Container for description and read more button */
-div.card-text {
-  margin-bottom: 12px;
-  position: relative;
-}
-.card-text.post-caption a {
-  border-bottom: 1px solid #2a2929; /* يمكن تغيير اللون حسب الرغبة */
-  padding-bottom: 2px;
+  margin-bottom: 8px; /* Reduced margin */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  line-height: 1.5; /* Slightly tighter line height */
+  color: #52627f;
+  display: block;
 }
