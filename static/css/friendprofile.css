@@ -131,26 +131,112 @@ body {
     padding: 1.5rem;
 }
 
-.col-md-8 .card-text {
-    color: #495057;
-    font-size: 1rem;
+/* User info header and post styling */
+.user-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed rgba(78, 115, 223, 0.2);
+}
+
+.user-info-header h4 {
+    margin: 0;
+    color: #4e73df;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.user-info-header h4:hover {
+    color: #2e59d9;
+}
+
+/* Update for post-caption - make text larger, bolder, with a more transparent background */
+.post-caption {
+    font-size: 1.3rem; /* Increased from 1.1rem */
     line-height: 1.6;
     margin-bottom: 15px;
+    font-weight: 700; /* Changed to bold (700) from medium (500) */
+    padding: 10px 15px;
+    background-color: rgba(248, 249, 250, 0.5); /* Made more transparent */
+    border-radius: 8px;
+    position: relative;
+    display: inline-block; /* Makes container fit content width */
+    max-width: 100%; /* Prevents overflow */
 }
 
-.col-md-8 .card-link {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin-right: 15px;
-    transition: color 0.3s ease;
+.post-caption::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #FF6347, #FF8C69);
+    border-radius: 4px 0 0 4px;
+}
+/* Optional: enhance the quote style */
+.post-caption a {
     text-decoration: none;
+    color: inherit;
 }
 
-.col-md-8 .card-link:hover {
+.post-caption span {
+    color: #FF6347;
+    font-weight: 700;
+}
+.content-divider {
+    display: block;
+    height: 1px;
+    background: linear-gradient(to right, rgba(78, 115, 223, 0.1), rgba(78, 115, 223, 0.4), rgba(78, 115, 223, 0.1));
+    margin: 20px 0;
+    position: relative;
+}
+
+.content-divider::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 7px;
+    border-radius: 10px;
+    background-color: #f5f7fa;
+}
+
+.description-container {
+    color: #495057;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding: 5px 0 15px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.read-more-btn {
+    display: inline-block;
     color: #4e73df;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin: 10px 15px 10px 0;
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 30px;
+    background-color: rgba(78, 115, 223, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* View more button */
+.read-more-btn:hover {
+    color: #fff;
+    background-color: #4e73df;
+    box-shadow: 0 4px 8px rgba(78, 115, 223, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Style for the View More button to appear on its own line */
 .col-md-8 .btn-info {
     background-color: #4e73df;
     border-color: #4e73df;
@@ -160,6 +246,11 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    margin-left: 0; /* Reset left margin to 0 */
+    margin-top: 10px; /* Add top margin for spacing */
+    display: block; /* Make it a block element so it starts on a new line */
+    width: fit-content; /* Make it only as wide as its content */
+    clear: both; /* Ensure it's on its own line */
 }
 
 .col-md-8 .btn-info:hover {
@@ -167,6 +258,16 @@ body {
     border-color: #2e59d9;
     transform: translateY(-1px);
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+.card-link {
+    color: #6c757d;
+    font-size: 0.85rem;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    color: #4e73df;
 }
 
 /* Pagination styling */
@@ -233,6 +334,11 @@ body {
     .row {
         margin-top: 20px !important;
     }
+    
+    .user-info-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 @media (max-width: 576px) {
@@ -247,5 +353,33 @@ body {
     
     .col-md-3 h4 {
         font-size: 1rem;
+    }
+    
+    .post-caption {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+    
+/* If there are any block containers that might be interfering with the button placement */
+.description-container {
+    color: #495057;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding: 5px 0 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    display: block; /* Ensure it's a block to contain the button properly */
+}
+    
+    .read-more-btn {
+        display: block;
+        margin: 10px 0;
+        text-align: center;
+    }
+    
+    .btn-info {
+        display: block;
+        margin: 10px 0 0 0 !important;
+        text-align: center;
     }
 }

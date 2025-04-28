@@ -90,6 +90,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Post caption hover effect
+    const captions = document.querySelectorAll('.post-caption');
+    captions.forEach(caption => {
+        caption.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        caption.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+    
+    // Add hover effect to view more buttons
+    const viewMoreButtons = document.querySelectorAll('.btn-info');
+    viewMoreButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 7px 14px rgba(50, 50, 93, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)';
+        });
+    });
+    
     // Add style for spinner
     const style = document.createElement('style');
     style.textContent = `
@@ -114,3 +141,72 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// Enhanced Read More functionality
+function toggleReadMore(postId) {
+    const shortText = document.getElementById('short-' + postId);
+    const fullText = document.getElementById('full-' + postId);
+    const btn = document.getElementById('btn-' + postId);
+    
+    if (shortText.style.display !== 'none') {
+        // Transition to show full text
+        shortText.style.opacity = '1';
+        
+        // Start fade out animation
+        shortText.style.transition = 'opacity 0.3s ease';
+        shortText.style.opacity = '0';
+        
+        setTimeout(() => {
+            // Hide short text and show full text
+            shortText.style.display = 'none';
+            fullText.style.display = 'inline';
+            
+            // Set initial opacity for fade in
+            fullText.style.opacity = '0';
+            fullText.style.transition = 'opacity 0.3s ease';
+            
+            // Start fade in animation
+            setTimeout(() => {
+                fullText.style.opacity = '1';
+            }, 50);
+            
+            // Change button text with animation
+            btn.innerHTML = 'Read less';
+            btn.style.backgroundColor = 'rgba(78, 115, 223, 0.2)';
+            
+            setTimeout(() => {
+                btn.style.backgroundColor = 'rgba(78, 115, 223, 0.1)';
+            }, 300);
+        }, 300);
+    } else {
+        // Transition to show short text
+        fullText.style.opacity = '1';
+        
+        // Start fade out animation
+        fullText.style.transition = 'opacity 0.3s ease';
+        fullText.style.opacity = '0';
+        
+        setTimeout(() => {
+            // Hide full text and show short text
+            fullText.style.display = 'none';
+            shortText.style.display = 'inline';
+            
+            // Set initial opacity for fade in
+            shortText.style.opacity = '0';
+            shortText.style.transition = 'opacity 0.3s ease';
+            
+            // Start fade in animation
+            setTimeout(() => {
+                shortText.style.opacity = '1';
+            }, 50);
+            
+            // Change button text with animation
+            btn.innerHTML = 'Read more';
+            btn.style.backgroundColor = 'rgba(78, 115, 223, 0.2)';
+            
+            setTimeout(() => {
+                btn.style.backgroundColor = 'rgba(78, 115, 223, 0.1)';
+            }, 300);
+        }, 300);
+    }
+}
