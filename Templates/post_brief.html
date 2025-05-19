@@ -1,10 +1,14 @@
 {%  extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
 Post Detail
 {% endblock title %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/post_brief.css' %}">
+{% endblock extra_css %}
 
 {% block navbar %}
 
@@ -20,5 +24,8 @@ Post Detail
 <p>{{ post.caption }}</p>
 <p>Posted on: {{ post.date }}</p>
 
+{% block extra_js %}
+<script src="{% static 'js/post_brief.js' %}"></script>
+{% endblock extra_js %}
 {% endblock content %}
 

@@ -1,24 +1,51 @@
 {%  extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
 Post Detail
 {% endblock title %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock extra_css %}
 
 {% block navbar %}
-
 {%  include 'navbar.html' %}
-
 {% endblock navbar %}
 
 {% block content %}
-
-<h1 style="color: #0000ff; font-weight: bold;">THis is total Report Details to our site ok?</h1>
-
-<h2>{{ post.user.username }}'s Post</h2>
-<p>{{ post.caption }}</p>
-<p>Posted on: {{ post.date }}</p>
-
+<div class="container post-container">
+    <div class="post-card">
+        <div class="post-header">
+            <div class="user-info">
+                <img src="{{ post.user.profile_pic.url }}" alt="Profile Picture" class="profile-image">
+                <div class="user-details">
+                    <h3>@{{ post.user.username }}</h3>
+                    <span class="post-date">{{ post.date }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h2 class="post-caption">{{ post.caption }}</h2>
+            
+            {% if post.description %}
+            <div class="post-description">
+                {{ post.description }}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="post-actions">
+            <a href="{% url 'home_page' %}" class="btn btn-back"><i class="fa fa-arrow-left"></i> Back to Home</a>
+            <a href="/user/{{ post.user.username }}" class="btn btn-profile">View Profile</a>
+        </div>
+    </div>
+</div>
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/post_detail.js' %}"></script>
+{% endblock extra_js %}
 
